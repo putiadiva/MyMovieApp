@@ -2,8 +2,11 @@ package com.example.mymovieapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.example.mymovieapp.data.model.MovieData
 import com.example.mymovieapp.databinding.ActivityMainBinding
 
@@ -25,11 +28,21 @@ class MainActivity : AppCompatActivity() {
 //        getDummyMovie()
 //        setUpRecyclerView()
         setUpButton()
+        setUpSwipeBehavior()
         observe()
 
     }
 
-    private fun setUpButton() {
+    private fun setUpSwipeBehavior() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            // Your code to make your refresh action
+            // CallYourRefreshingMethod();
+            // https://medium.com/@houdayer.corentin/how-to-use-swipe-to-refresh-swiperefreshlayout-99abd674c907
+        }
+    }
+}
+
+private fun setUpButton() {
         binding.btnRetry.setOnClickListener {
             viewModel.getMovieList()
         }
