@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymovieapp.data.model.MovieData
 import com.example.mymovieapp.databinding.ActivityMainBinding
 
@@ -21,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = GridLayoutManager(this, 2)
         binding.rvMovies.layoutManager = layoutManager
 
-        viewModel = MainViewModel()
+        viewModel = MainViewModel(application)
 
 //        getDummyMovie()
 //        setUpRecyclerView()
@@ -41,17 +40,25 @@ class MainActivity : AppCompatActivity() {
             val adapter = MovieAdapter(it)
             binding.rvMovies.adapter = adapter
         }
-        
+
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
         viewModel.isError.observe(this) {
-            showRetryButton(it)
+            showError(it)
+        }
+
+        viewModel.noInternet.observe(this) {
+            showNoInternet(it)
         }
     }
 
-    private fun showRetryButton(isError: Boolean) {
+    private fun showNoInternet(noInternet: Boolean) {
+        binding.tvNoInternet.visibility = if (noInternet) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(isError: Boolean) {
         binding.tvWarning.visibility = if (isError) View.VISIBLE else View.GONE
         binding.btnRetry.visibility = if (isError) View.VISIBLE else View.GONE
     }

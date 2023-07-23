@@ -1,6 +1,10 @@
 package com.example.mymovieapp.ui.main
 
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _movieList = MutableLiveData<List<MovieData>>()
     val movieList: LiveData<List<MovieData>> = _movieList
@@ -22,8 +26,15 @@ class MainViewModel : ViewModel() {
     private val _isError = MutableLiveData<Boolean>()
     val isError: LiveData<Boolean> = _isError
 
+    private val _noInternet = MutableLiveData<Boolean>()
+    val noInternet: LiveData<Boolean> = _noInternet
+
     init {
-        getMovieList()
+        if (isConnectedToInternet()) {
+            getMovieList()
+        } else {
+            _noInternet.value = false
+        }
     }
 
     fun getMovieList() {
@@ -52,6 +63,12 @@ class MainViewModel : ViewModel() {
             }
 
         })
+    }
+
+    fun isConnectedToInternet() : Boolean {
+        val context = getApplication<Application>().applicationContext
+        val connectivity = context.getSystemService(Context.CONNECTIVITY_SERVICE)
+        return connectivity != null
     }
 
     companion object {

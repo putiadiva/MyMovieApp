@@ -35,6 +35,17 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_retry"
         app:layout_constraintStart_toStartOf="@+id/btn_retry" />
 
+    <TextView
+        android:id="@+id/tv_no_internet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No internet :("
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btn_retry"
+        app:layout_constraintEnd_toEndOf="@+id/btn_retry"
+        app:layout_constraintStart_toStartOf="@+id/btn_retry" />
+
     <Button
         android:id="@+id/btn_retry"
         android:layout_width="wrap_content"
