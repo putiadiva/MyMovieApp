@@ -15,6 +15,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField("String", "KEY", '"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTc2ZmI1MmE5OTBiMTU1NGFmNTliNmFlZjFiNjFiOCIsInN1YiI6IjY0YmJhNWUwNThlZmQzMDBhY2UxNWNlYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.y9q6g9Sruhf52iBXgZkpDJBYdOkbmRhaZR_hic0-ONg"')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

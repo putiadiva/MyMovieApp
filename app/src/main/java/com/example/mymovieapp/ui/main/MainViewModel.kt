@@ -19,12 +19,16 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _isError = MutableLiveData<Boolean>()
+    val isError: LiveData<Boolean> = _isError
+
     init {
         getMovieList()
     }
 
-    private fun getMovieList() {
+    fun getMovieList() {
         _isLoading.value = true
+        _isError.value = false
 
         val client = ApiConfig.getApiService().getNowPlayingMovies()
         client.enqueue(object : Callback<ResponseMovieList> {
@@ -36,12 +40,14 @@ class MainViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _movieList.value = response.body()?.results
                 } else {
+                    _isError.value = true
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<ResponseMovieList>, t: Throwable) {
                 _isLoading.value = false
+                _isError.value = true
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 

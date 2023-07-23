@@ -24,8 +24,15 @@ class MainActivity : AppCompatActivity() {
 
 //        getDummyMovie()
 //        setUpRecyclerView()
+        setUpButton()
         observe()
 
+    }
+
+    private fun setUpButton() {
+        binding.btnRetry.setOnClickListener {
+            viewModel.getMovieList()
+        }
     }
 
     private fun observe() {
@@ -37,6 +44,15 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {
             showLoading(it)
         }
+
+        viewModel.isError.observe(this) {
+            showRetryButton(it)
+        }
+    }
+
+    private fun showRetryButton(isError: Boolean) {
+        binding.tvWarning.visibility = if (isError) View.VISIBLE else View.GONE
+        binding.btnRetry.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun showLoading(isLoading: Boolean) {
