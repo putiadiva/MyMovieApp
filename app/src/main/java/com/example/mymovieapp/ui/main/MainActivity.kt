@@ -2,6 +2,7 @@ package com.example.mymovieapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mymovieapp.data.model.MovieData
 import com.example.mymovieapp.databinding.ActivityMainBinding
@@ -21,8 +22,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = MainViewModel()
 
-        getDummyMovie()
-        setUpRecyclerView()
+//        getDummyMovie()
+//        setUpRecyclerView()
         observe()
 
     }
@@ -32,6 +33,14 @@ class MainActivity : AppCompatActivity() {
             val adapter = MovieAdapter(it)
             binding.rvMovies.adapter = adapter
         }
+        
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setUpRecyclerView() {
