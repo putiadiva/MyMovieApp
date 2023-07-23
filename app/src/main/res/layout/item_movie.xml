@@ -16,6 +16,6 @@
         android:layout_height="wrap_content"
         tools:text="Movie Title"
         android:layout_margin="8dp"
-        android:textSize="24dp"/>
+        android:textSize="20dp"/>
 
 </LinearLayout>
