@@ -4,7 +4,9 @@ data class MovieData(
 
     val id : Long,
 
-    val title: String
+    val title: String,
+
+    val poster_path: String? = null
 )
 
 data class ResponseMovieList(
